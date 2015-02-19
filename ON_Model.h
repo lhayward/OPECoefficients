@@ -53,13 +53,15 @@ class ON_Model
     virtual ~ON_Model();
     
     //methods implemented in ON_Model class:
+    void writeBin           (int binNum, int numMeas, int sweepsPerMeas);
     void writeClustHistoData(std::string fileName);
-    void zeroMeasurements();
+    void zeroMeasurements   ();
     
     //methods that can be overwritten by child classes:
     virtual void markWarmupDone  ();
     virtual void printParams     ();
     virtual void changeT         (double newT);
+    
     
     //pure virtual methods (to be implemented by all child classes):
     virtual void localUpdate        (MTRand &randomGen) = 0;
@@ -67,7 +69,6 @@ class ON_Model
     virtual void printSpins         () = 0;
     virtual void randomizeLattice   (MTRand &randomGen) = 0;
     virtual void sweep              (MTRand &randomGen, bool pr) = 0;
-    virtual void writeBin           (int binNum, int numMeas, int sweepsPerMeas) = 0;
     
   protected:
     void clearCluster(std::vector<uint> &cluster);

@@ -321,24 +321,3 @@ void ON_Model_Ngeq2::wolffUpdate(MTRand &randomGen, uint start, uint end, bool p
   { delete r; }
   r = NULL;
 } //wolffUpdate()
-
-/******************** writeBin(int binNum, int numMeas, int sweepsPerMeas) *******************/
-void ON_Model_Ngeq2::writeBin(int binNum, int numMeas, int sweepsPerMeas)
-{
-  //Note: the following two measurements will be divided by numMeas in the call to
-  //writeAverages() such that acceptance rates are written to file
-  measures.accumulate( "AccRate_local", numAccept_local_/(1.0*N_*sweepsPerMeas) );
-  measures.accumulate( "AccRate_clust", numAccept_clust_/(1.0*N_*sweepsPerMeas) );
-  
-  //if this is the first bin being written to file, then also write a line of text explaining
-  //each column:
-  if( binNum == 1)
-  {
-    fout << "# L \t T \t binNum";
-    measures.writeMeasNames(&fout);
-    fout << std::endl;
-  }
-  fout << L_[0] << '\t' << T_ << '\t' << binNum;
-  measures.writeAverages(&fout, numMeas);
-  fout << std::endl;
-}
