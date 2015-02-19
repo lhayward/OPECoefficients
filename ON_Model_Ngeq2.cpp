@@ -196,16 +196,6 @@ void ON_Model_Ngeq2::sweep(MTRand &randomGen, bool pr)
   { localUpdate(randomGen); }
 }
 
-/******************************** uintPower(int base, int exp) *******************************/
-uint ON_Model_Ngeq2::uintPower(uint base, uint exp)
-{
-  uint result = 1;
-  for(uint i=1; i<=exp; i++)
-  { result *= base; } 
-  
-  return result;
-} //uintPower method
-
 /******************************* wolffUpdate(MTRand* randomGen) ******************************/
 void ON_Model_Ngeq2::wolffUpdate(MTRand &randomGen, uint start, uint end, bool pr)
 {
@@ -351,32 +341,4 @@ void ON_Model_Ngeq2::writeBin(int binNum, int numMeas, int sweepsPerMeas)
   fout << L_[0] << '\t' << T_ << '\t' << binNum;
   measures.writeAverages(&fout, numMeas);
   fout << std::endl;
-}
-
-/************************* writeClustHistoData(std::string fileName) *************************/
-void ON_Model_Ngeq2::writeClustHistoData(std::string fileName)
-{
-  std::ofstream fout_clust;
-  
-  if( writeClusts_ )
-  {
-    fout_clust.open(fileName.c_str());
-    fout_clust.precision(15);
-  
-    fout_clust << "#T \t clustSize \t num_generated \t num_accepted \t num_rejected" << std::endl;
-    for( uint i=0; i<N_; i++ )
-    { 
-      fout_clust << T_ << '\t' << (i+1) << '\t' << clustSizes_[i] << '\t' << clustSizes_accepted_[i] 
-                 << '\t' << clustSizes_rejected_[i] << std::endl;
-    }
-    fout_clust.close();
-  }
-}
-
-/************************************* zeroMeasurements() ************************************/
-void ON_Model_Ngeq2::zeroMeasurements()
-{ 
-  ON_Model::zeroMeasurements();
-  numAccept_local_ = 0;
-  numAccept_clust_ = 0;
 }

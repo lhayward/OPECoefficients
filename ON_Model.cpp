@@ -151,10 +151,46 @@ void ON_Model::markWarmupDone()
 /*************************************** printParams() ***************************************/
 void ON_Model::printParams()
 {
+  std::cout << "O(" << spinDim_ << ") Model Parameters:\n"
+            << "---------------------" << std::endl;
   std::cout << "  J = " << J_ << "\n"
             << "  h = " << h_ << "\n";
 }
 
+/************************* writeClustHistoData(std::string fileName) *************************/
+void ON_Model::writeClustHistoData(std::string fileName)
+{
+  std::ofstream fout_clust;
+  
+  if( writeClusts_ )
+  {
+    fout_clust.open(fileName.c_str());
+    fout_clust.precision(15);
+  
+    fout_clust << "#T \t clustSize \t num_generated \t num_accepted \t num_rejected" << std::endl;
+    for( uint i=0; i<N_; i++ )
+    { 
+      fout_clust << T_ << '\t' << (i+1) << '\t' << clustSizes_[i] << '\t' << clustSizes_accepted_[i] 
+                 << '\t' << clustSizes_rejected_[i] << std::endl;
+    }
+    fout_clust.close();
+  }
+}
+
+/******************************** uintPower(int base, int exp) *******************************/
+uint ON_Model::uintPower(uint base, uint exp)
+{
+  uint result = 1;
+  for(uint i=1; i<=exp; i++)
+  { result *= base; } 
+  
+  return result;
+} //uintPower method
+
 /************************************* zeroMeasurements() ************************************/
 void ON_Model::zeroMeasurements()
-{ measures.zero(); }
+{ 
+  measures.zero();
+  numAccept_local_ = 0;
+  numAccept_clust_ = 0;
+}

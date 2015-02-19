@@ -27,7 +27,6 @@ class ON_Model_Ngeq2 : public ON_Model
     double       getClusterOnSiteEnergy(std::vector<uint> &cluster);
     double       getEnergy             ();
     Vector_NDim* getMagnetization      ();
-    uint         uintPower             (uint base, uint exp);
     void         updateObservables     ();
     void         wolffUpdate           (MTRand &randomGen, uint start, uint end, bool pr);
     
@@ -42,8 +41,6 @@ class ON_Model_Ngeq2 : public ON_Model
     virtual void randomizeLattice   (MTRand &randomGen);
     virtual void sweep              (MTRand &randomGen, bool pr);
     virtual void writeBin           (int binNum, int numMeas, int sweepsPerMeas);
-    virtual void writeClustHistoData(std::string fileName);
-    virtual void zeroMeasurements   ();
 };  
 
 #endif  //ON_MODEL_NGEQ2
