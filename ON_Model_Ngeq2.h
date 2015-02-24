@@ -23,12 +23,12 @@ class ON_Model_Ngeq2 : public ON_Model
   private:                  
     VectorSpins*    spins_; //the degrees of freedom (d.o.f.) for the model
     
-    void         flipCluster           (std::vector<uint> &cluster, Vector_NDim* r);
-    double       getClusterOnSiteEnergy(std::vector<uint> &cluster);
-    double       getEnergy             ();
-    Vector_NDim* getMagnetization      ();
-    void         updateObservables     ();
-    void         wolffUpdate           (MTRand &randomGen, uint start, uint end, bool pr);
+    void   flipCluster           (std::vector<uint> &cluster, Vector_NDim* r);
+    double getClusterOnSiteEnergy(std::vector<uint> &cluster);
+    double getEnergy             ();
+    double getSigma1Tot();
+    void   updateObservables     ();
+    void   wolffUpdate           (MTRand &randomGen, uint start, uint end, bool pr);
     
   public:
     ON_Model_Ngeq2(uint spinDim, std::ifstream* fin, std::string outFileName, 

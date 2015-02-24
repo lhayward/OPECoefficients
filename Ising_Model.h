@@ -22,11 +22,11 @@ class Ising_Model : public ON_Model
   private:                  
     IsingSpins*  spins_; //the degrees of freedom (d.o.f.) for the model
     
-    void   flipCluster           (std::vector<uint> &cluster);
-    double getEnergy             ();
-    int    getMagnetization      ();
-    void   updateObservables     ();
-    void   wolffUpdate           (MTRand &randomGen, bool pr);
+    void   flipCluster       (std::vector<uint> &cluster);
+    double getEnergy         ();
+    int    getSigmaTot       ();
+    void   updateObservables ();
+    void   wolffUpdate       (MTRand &randomGen, bool pr);
     
   public:
     Ising_Model(std::ifstream* fin, std::string outFileName, Hyperrectangle* lattice, 

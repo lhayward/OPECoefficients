@@ -79,7 +79,7 @@ ON_Model::ON_Model(std::ifstream* fin, std::string outFileName, Hyperrectangle* 
       clustSizes_accepted_[i] = 0;
       clustSizes_rejected_[i] = 0; 
     }
-  }
+  } //if for writeClusts_
 }
 
 /********************************** ~ON_Model() (destructor) *********************************/

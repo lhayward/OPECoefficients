@@ -30,6 +30,8 @@ ON_Model_Ngeq2::ON_Model_Ngeq2(uint spinDim, std::ifstream* fin, std::string out
   spinDim_ = spinDim;
   spins_ = new VectorSpins(N_, spinDim_);
   randomizeLattice(randomGen);
+  
+  measures.insert("sigma1");
 }
 
 /******************************* ~ON_Model_Ngeq2() (destructor) ******************************/
@@ -104,7 +106,7 @@ double ON_Model_Ngeq2::getEnergy()
 } //getEnergy()
 
 /************************************* getMagnetization() ************************************/
-Vector_NDim* ON_Model_Ngeq2::getMagnetization()
+/*Vector_NDim* ON_Model_Ngeq2::getMagnetization()
 {
   Vector_NDim* mag = new Vector_NDim( spinDim_,0 );
   
@@ -112,6 +114,17 @@ Vector_NDim* ON_Model_Ngeq2::getMagnetization()
   { mag->add( spins_->getSpin(i) ); }
   
   return mag;
+}*/
+
+/*************************************** getSigma1Tot() ***************************************/
+double ON_Model_Ngeq2::getSigma1Tot()
+{
+  int sigma1Tot = 0;
+  
+  for( uint i=0; i<N_; i++ )
+  { sigma1Tot += spins_->getSpin(i)->v_[0]; }
+  
+  return sigma1Tot;
 }
 
 /******************************* localUpdate(MTRand* randomGen) ******************************/
@@ -165,10 +178,12 @@ void ON_Model_Ngeq2::localUpdate(MTRand &randomGen)
 /************************************* makeMeasurement() *************************************/
 void ON_Model_Ngeq2::makeMeasurement()
 {
-  double            energyPerSpin = getEnergy()/(1.0*N_);
+  double energyPerSpin = getEnergy()/(1.0*N_);
+  double sigma1PerSpin = getSigma1Tot()/(1.0*N_);
   
-  measures.accumulate( "E",   energyPerSpin ) ;
-  measures.accumulate( "ESq", pow(energyPerSpin,2) );
+  measures.accumulate( "E",      energyPerSpin ) ;
+  measures.accumulate( "ESq",    pow(energyPerSpin,2) );
+  measures.accumulate( "sigma1", sigma1PerSpin );
 }
 
 /**************************************** printSpins() ***************************************/

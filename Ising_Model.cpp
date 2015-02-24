@@ -30,6 +30,8 @@ Ising_Model::Ising_Model(std::ifstream* fin, std::string outFileName, Hyperrecta
   spinDim_ = 1;
   spins_ = new IsingSpins(N_);
   randomizeLattice(randomGen);
+  
+  measures.insert("sigma");
 }
 
 /******************************** ~Ising_Model() (destructor) ********************************/
@@ -79,15 +81,15 @@ double Ising_Model::getEnergy()
   return ((-1.0*J_*energyJ) + (-1.0*h_*energyh)) ;
 } //getEnergy()
 
-/************************************* getMagnetization() ************************************/
-int Ising_Model::getMagnetization()
+/*************************************** getSigmaTot() ***************************************/
+int Ising_Model::getSigmaTot()
 {
-  int mag = 0;
+  int sigmaTot = 0;
   
   for( uint i=0; i<N_; i++ )
-  { mag += spins_->getSpin(i); }
+  { sigmaTot += spins_->getSpin(i); }
   
-  return mag;
+  return sigmaTot;
 }
 
 /******************************* localUpdate(MTRand* randomGen) ******************************/
@@ -124,9 +126,11 @@ void Ising_Model::localUpdate(MTRand &randomGen)
 void Ising_Model::makeMeasurement()
 {
   double energyPerSpin = getEnergy()/(1.0*N_);
+  double sigmaPerSpin  = getSigmaTot()/(1.0*N_);
   
-  measures.accumulate( "E",   energyPerSpin ) ;
-  measures.accumulate( "ESq", pow(energyPerSpin,2) );
+  measures.accumulate( "E",     energyPerSpin ) ;
+  measures.accumulate( "ESq",   pow(energyPerSpin,2) );
+  measures.accumulate( "sigma", sigmaPerSpin );
 }
 
 /**************************************** printSpins() ***************************************/
