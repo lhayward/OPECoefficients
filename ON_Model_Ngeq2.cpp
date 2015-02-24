@@ -238,7 +238,6 @@ void ON_Model_Ngeq2::wolffUpdate(MTRand &randomGen, uint start, uint end, bool p
     {
       neighSite = hrect_->getNeighbour( latticeSite, i );
       
-      //define the exponent based on whether the bond is in the xy-plane or in z-direction:
       exponent = (2.0*J_/T_)*rDotRef*( r->dot(spins_->getSpin(neighSite)) );
       
       if (exponent < 0 )
