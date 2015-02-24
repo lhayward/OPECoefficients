@@ -2,9 +2,9 @@ CC = c++
 CFLAGS = -std=c++0x -Wall -funroll-loops -O3 #-pg #-xHOST
 
 PROG = ope
-HDRS = MersenneTwister.h FileReading.h Hyperrectangle.h IsingSpins.h Measure.h ON_Model.h ON_Model_Ngeq2.h SimParameters.h Vector_NDim.h VectorSpins.h
-SRCS = Main.cpp FileReading.cpp Hyperrectangle.cpp IsingSpins.cpp Measure.cpp ON_Model.cpp ON_Model_Ngeq2.cpp SimParameters.cpp Vector_NDim.cpp VectorSpins.cpp
-OBJS = Main.o FileReading.o Hyperrectangle.o IsingSpins.o Measure.o ON_Model.o ON_Model_Ngeq2.o SimParameters.o Vector_NDim.o VectorSpins.o
+HDRS = MersenneTwister.h FileReading.h Hyperrectangle.h Ising_Model.h IsingSpins.h Measure.h ON_Model.h ON_Model_Ngeq2.h SimParameters.h Vector_NDim.h VectorSpins.h
+SRCS = Main.cpp FileReading.cpp Hyperrectangle.cpp Ising_Model.h IsingSpins.cpp Measure.cpp ON_Model.cpp ON_Model_Ngeq2.cpp SimParameters.cpp Vector_NDim.cpp VectorSpins.cpp
+OBJS = Main.o FileReading.o Hyperrectangle.o Ising_Model.o IsingSpins.o Measure.o ON_Model.o ON_Model_Ngeq2.o SimParameters.o Vector_NDim.o VectorSpins.o
 
 $(PROG): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(PROG)
@@ -14,6 +14,12 @@ FileReading.o: FileReading.cpp $(HDRS)
 	
 Hyperrectangle.o: Hyperrectangle.cpp $(HDRS)
 	$(CC) $(CFLAGS) -c Hyperrectangle.cpp -o Hyperrectangle.o
+	
+Ising_Model.o: Ising_Model.cpp $(HDRS)
+	$(CC) $(CFLAGS) -c Ising_Model.cpp -o Ising_Model.o
+	
+IsingSpins.o: IsingSpins.cpp $(HDRS)
+	$(CC) $(CFLAGS) -c IsingSpins.cpp -o IsingSpins.o
 	
 Measure.o: Measure.cpp $(HDRS)
 	$(CC) $(CFLAGS) -c Measure.cpp -o Measure.o

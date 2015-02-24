@@ -18,6 +18,7 @@
 #include <typeinfo>
 #include "FileReading.h"
 #include "Hyperrectangle.h"
+#include "Ising_Model.h"
 #include "MersenneTwister.h"
 #include "Hyperrectangle.h"
 #include "ON_Model.h"
@@ -159,8 +160,7 @@ ON_Model* readModel(uint spinDim, std::string inFileName, std::string startStr,
   
   if( spinDim == 1 )
   { 
-    //result = new Ising_Model(&fin, outFileName, lattice, randomGen);
-    std::cout << "Ising Model not ready" << std::endl;
+    result = new Ising_Model(&fin, outFileName, lattice, randomGen);
   }
   else
   {
